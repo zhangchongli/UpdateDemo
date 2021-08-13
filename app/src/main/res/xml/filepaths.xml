@@ -1,0 +1,6 @@
+<paths>
+    <files-path path="Download/" name="intfiles" />
+    <external-path path="Android/data/com.ss.android.platform.demo/cache/" name="my_image"/>
+    <cache-path path="" name="cache"/>
+    <root-path name="root_path" path="." />
+</paths>

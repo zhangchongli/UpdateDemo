@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onekit_app_id" translatable="false">10003169</string>
+    <string name="onekit_mars_access_key" translatable="false">19ffb874f9d578d3acd2f38cfb53d115</string>
+    <string name="onekit_mars_secret_key" translatable="false">26fb585a7d3079eac0b840fbc657cdd8</string>
+    <string name="onekit_privacy_mode" translatable="false">false</string>
+    <string name="onekit_version" translatable="false">1</string>
+</resources>

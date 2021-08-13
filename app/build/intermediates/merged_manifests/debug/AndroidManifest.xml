@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.volcengine.update"
+    android:versionCode="1568"
+    android:versionName="1.5.6" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="28" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.asus.msa.SupplementaryDID.ACCESS" />
+
+    <application
+        android:name="com.volcengine.BaseApplication"
+        android:allowBackup="true"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Update" >
+        <meta-data
+            android:name="UPDATE_VERSION_CODE"
+            android:value="2200" />
+
+        <activity android:name="com.volcengine.update.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.mars.android.update"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
+        <activity
+            android:name="com.volcengine.mars.update.UpdateProgressActivity"
+            android:screenOrientation="portrait" /> <!-- APP DOWNLOADER START -->
+        <service android:name="com.ss.android.socialbase.appdownloader.DownloadHandlerService" /> <!-- <receiver android:name="com.ss.android.socialbase.appdownloader.DownloadReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.BOOT_COMPLETED"/> -->
+        <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/> -->
+        <!-- <action android:name="android.ss.intent.action.DOWNLOAD_COMPLETE"/> -->
+        <!-- </intent-filter> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.PACKAGE_ADDED"/> -->
+        <!-- <action android:name="android.intent.action.PACKAGE_REPLACED"/> -->
+        <!-- <data android:scheme="package"/> -->
+        <!-- </intent-filter> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MEDIA_MOUNTED"/> -->
+        <!-- <data android:scheme="file"/> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <activity
+            android:name="com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name="com.ss.android.socialbase.appdownloader.view.JumpUnknownSourceActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Dialog" />
+
+        <service
+            android:name="com.ss.android.socialbase.appdownloader.RetryJobSchedulerService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="com.volcengine.onekit.component.ComponentDiscoveryService"
+            android:exported="false" >
+            <meta-data
+                android:name="com.bytedance.applog.onekit.AnalyticsComponentRegistrar"
+                android:value="com.volcengine.onekit.component.ComponentRegistrar" />
+            <meta-data
+                android:name="com.bytedance.applog.onekit.DeviceComponentRegistrar"
+                android:value="com.volcengine.onekit.component.ComponentRegistrar" />
+        </service>
+
+        <activity android:name="com.bytedance.applog.migrate.MigrateDetectorActivity" />
+
+        <receiver
+            android:name="com.bytedance.applog.collector.Collector"
+            android:enabled="true"
+            android:exported="false" />
+
+        <provider
+            android:name="com.volcengine.onekit.OneKitInitProvider"
+            android:authorities="com.volcengine.update.com.volcengine.onekit.OneKitInitProvider"
+            android:exported="false"
+            android:initOrder="99" >
+        </provider>
+
+        <service
+            android:name="com.ss.android.socialbase.downloader.downloader.IndependentProcessDownloadService"
+            android:exported="false"
+            android:process=":downloader" >
+            <intent-filter>
+                <action android:name="com.ss.android.socialbase.downloader.remote" />
+            </intent-filter>
+        </service>
+        <service android:name="com.ss.android.socialbase.downloader.notification.DownloadNotificationService" />
+        <service android:name="com.ss.android.socialbase.downloader.downloader.DownloadService" />
+        <service android:name="com.ss.android.socialbase.downloader.impls.DownloadHandleService" /> <!-- <receiver android:name="com.ss.android.socialbase.downloader.downloader.DownloadReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- 数据库更新service -->
+        <service android:name="com.ss.android.socialbase.downloader.downloader.SqlDownloadCacheService" />
+    </application>
+
+</manifest>
